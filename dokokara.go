@@ -17,6 +17,8 @@ func doko(w http.ResponseWriter, r *http.Request) {
 		ip, _, err = net.SplitHostPort(r.RemoteAddr)
 		if err != nil {
 			log.Println("SplitHostPort error: ", err)
+			fmt.Fprint(w, "IP: ???\nHost: ???")
+			return
 		}
 	}
 	log.Println("IP: ", ip)
@@ -24,6 +26,8 @@ func doko(w http.ResponseWriter, r *http.Request) {
 	host, err := net.LookupAddr(ip)
 	if err != nil {
 		log.Println("LookupAddr error: ", err)
+		fmt.Fprintf(w, "IP: %s\nHost: ???", ip)
+		return
 	}
 	log.Println("Host: ", host)
 
