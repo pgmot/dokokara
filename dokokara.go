@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func where(w http.ResponseWriter, r *http.Request) {
+func doko(w http.ResponseWriter, r *http.Request) {
 	var ip string
 
 	ip = r.Header.Get("X-Forwarded-For")
@@ -37,7 +37,7 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	http.HandleFunc("/", where)
+	http.HandleFunc("/", doko)
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
