@@ -13,11 +13,14 @@ func where(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal("SplitHostPort error: ", err)
 	}
+	log.Println("IP: ", ip)
 
 	host, err := net.LookupAddr(ip)
 	if err != nil {
 		log.Fatal("LookupAddr error: ", err)
 	}
+	log.Println("Host: ", host)
+
 	fmt.Fprintf(w, "IP: %s\nHost: %s", ip, host[0])
 }
 
