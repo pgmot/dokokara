@@ -9,9 +9,15 @@ import (
 )
 
 func where(w http.ResponseWriter, r *http.Request) {
-	ip, _, err := net.SplitHostPort(r.RemoteAddr)
-	if err != nil {
-		log.Fatal("SplitHostPort error: ", err)
+	var ip string
+
+	ip = r.Header.Get("X-Forwarded-For")
+	if ip == "" {
+		var err error
+		ip, _, err = net.SplitHostPort(r.RemoteAddr)
+		if err != nil {
+			log.Fatal("SplitHostPort error: ", err)
+		}
 	}
 	log.Println("IP: ", ip)
 
