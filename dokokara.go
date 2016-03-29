@@ -9,8 +9,15 @@ import (
 )
 
 func where(w http.ResponseWriter, r *http.Request) {
-	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
-	host, _ := net.LookupAddr(ip)
+	ip, _, err := net.SplitHostPort(r.RemoteAddr)
+	if err != nil {
+		log.Fatal("SplitHostPort error: ", err)
+	}
+
+	host, err := net.LookupAddr(ip)
+	if err != nil {
+		log.Fatal("LookupAddr error: ", err)
+	}
 	fmt.Fprintf(w, "IP: %s\nHost: %s", ip, host[0])
 }
 
