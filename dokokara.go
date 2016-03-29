@@ -16,14 +16,14 @@ func doko(w http.ResponseWriter, r *http.Request) {
 		var err error
 		ip, _, err = net.SplitHostPort(r.RemoteAddr)
 		if err != nil {
-			log.Fatal("SplitHostPort error: ", err)
+			log.Println("SplitHostPort error: ", err)
 		}
 	}
 	log.Println("IP: ", ip)
 
 	host, err := net.LookupAddr(ip)
 	if err != nil {
-		log.Fatal("LookupAddr error: ", err)
+		log.Println("LookupAddr error: ", err)
 	}
 	log.Println("Host: ", host)
 
